@@ -23,14 +23,16 @@
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text">
+                                    <input class="input" type="text" v-model="title">
                                 </div>
+                                {{ title }}
                             </div>
                             <div class="field">
                                 <label class="label">Description</label>
                                 <div class="control">
-                                    <textarea class="textarea"></textarea>
+                                    <textarea class="textarea" v-model="description"></textarea>
                                 </div>
+                                {{ description }}
                             </div>
                             <button class="button is-primary">Add Item</button>
                         </div>
@@ -41,7 +43,11 @@
 
         <script>
             new Vue({
-                el: '#app'
+                el: '#app',
+                data: {
+                    title: null,
+                    description: null
+                }
             });
         </script>
     </body>
