@@ -53,7 +53,8 @@
                             <div class="field">
                                 <label class="label">Title</label>
                                 <div class="control">
-                                    <input class="input" type="text" v-model="title">
+                                    <input class="input" type="text" v-model="title" :class="{ 'is-danger': titleEmpty }">
+                                    <p v-if="titleEmpty" class="help is-danger">A title is required.</p>
                                 </div>
                             </div>
                             <div class="field">
@@ -75,10 +76,17 @@
                 data: {
                     title: null,
                     description: null,
-                    items: []
+                    items: [],
+                    titleEmpty: false
                 },
                 methods: {
                     add: function() {
+                        // Make sure we have a title
+                        if(this.title === null) {
+                            this.titleEmpty = true;
+                            return;
+                        }
+
                         // Create and add the new item
                         var item = {
                             title: this.title,
@@ -90,6 +98,7 @@
                         // Reset the entry state
                         this.title = null;
                         this.description = null;
+                        this.titleEmpty = false;
                     }
                 }
             });
