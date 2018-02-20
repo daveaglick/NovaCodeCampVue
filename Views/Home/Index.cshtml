@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Vue Todo</title>
+        <script src="//unpkg.com/vue"></script>
         <link rel="stylesheet" href="//unpkg.com/bulma/css/bulma.css">
     </head>    
     <body>
@@ -12,7 +13,7 @@
                 <h1 class="title is-1 has-text-grey">Vue Todo</h1>
                 <p class="subtitle has-text-light-grey">Let's get organized!</p>
                 <hr/>
-                <div>
+                <div id="app">
                     <div class="columns">
                         <div class="column">
                             <h3 class="title is-3"><em>Todo Items</em></h2>
@@ -37,5 +38,11 @@
                 </div>
             </div>
         </section>
+
+        <script>
+            new Vue({
+                el: '#app'
+            });
+        </script>
     </body>
 </html>
