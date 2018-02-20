@@ -25,16 +25,14 @@
                                 <div class="control">
                                     <input class="input" type="text" v-model="title">
                                 </div>
-                                {{ title }}
                             </div>
                             <div class="field">
                                 <label class="label">Description</label>
                                 <div class="control">
                                     <textarea class="textarea" v-model="description"></textarea>
                                 </div>
-                                {{ description }}
                             </div>
-                            <button class="button is-primary">Add Item</button>
+                            <button class="button is-primary" v-on:click="add">Add Item</button>
                         </div>
                     </div>
                 </div>
@@ -46,7 +44,22 @@
                 el: '#app',
                 data: {
                     title: null,
-                    description: null
+                    description: null,
+                    items: []
+                },
+                methods: {
+                    add: function() {
+                        // Create and add the new item
+                        var item = {
+                            title: this.title,
+                            description: this.description
+                        };
+                        this.items.push(item);
+
+                        // Reset the entry state
+                        this.title = null;
+                        this.description = null;
+                    }
                 }
             });
         </script>
