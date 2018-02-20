@@ -51,19 +51,13 @@
                         </div>
                         <div class="column">
                             <h3 class="title is-3"><em>Add An Item</em></h2>
-                            <div class="field">
-                                <label class="label">Title</label>
-                                <div class="control">
-                                    <input class="input" type="text" v-model="title" :class="{ 'is-danger': titleEmpty }">
-                                    <p v-if="titleEmpty" class="help is-danger">A title is required.</p>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label class="label">Description</label>
-                                <div class="control">
-                                    <textarea class="textarea" v-model="description"></textarea>
-                                </div>
-                            </div>
+                            <field label="Title">
+                                <input class="input" type="text" v-model="title" :class="{ 'is-danger': titleEmpty }">
+                                <p v-if="titleEmpty" class="help is-danger">A title is required.</p>
+                            </field>
+                            <field label="Description">
+                                <textarea class="textarea" v-model="description"></textarea>
+                            </field>
                             <button class="button is-primary" v-on:click="add" :class="{ 'is-loading': loading }">Add Item</button>
                         </div>
                     </div>
@@ -71,7 +65,21 @@
             </div>
         </section>
 
+        <script type="x-template" id="field">
+            <div class="field">
+                <label class="label">{{ label }}</label>
+                <div class="control">
+                    <slot></slot>
+                </div>
+            </div>
+        </script>
+
         <script>
+            Vue.component('field', {
+                template: '#field',
+                props: ['label']
+            });
+
             new Vue({
                 el: '#app',
                 data: {
