@@ -16,6 +16,14 @@ namespace IntroToVue.Controllers
             return View();
         }
 
+        [HttpPost]
+        public IActionResult Index([FromBody] TodoItem item)
+        {
+            Thread.Sleep(2000);
+            Console.WriteLine($"Title: {item.Title}, Description: {item.Description}");
+            return Ok();
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });

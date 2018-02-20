@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Vue Todo</title>
         <script src="//unpkg.com/vue"></script>
+        <script src="//unpkg.com/axios/dist/axios.min.js"></script>
         <link rel="stylesheet" href="//unpkg.com/bulma/css/bulma.css">
         <style>
             .strikethrough {
@@ -63,7 +64,7 @@
                                     <textarea class="textarea" v-model="description"></textarea>
                                 </div>
                             </div>
-                            <button class="button is-primary" v-on:click="add">Add Item</button>
+                            <button class="button is-primary" v-on:click="add" :class="{ 'is-loading': loading }">Add Item</button>
                         </div>
                     </div>
                 </div>
@@ -77,7 +78,8 @@
                     title: null,
                     description: null,
                     items: [],
-                    titleEmpty: false
+                    titleEmpty: false,
+                    loading: false
                 },
                 methods: {
                     add: function() {
@@ -93,12 +95,22 @@
                             description: this.description,
                             done: false
                         };
-                        this.items.push(item);
-
-                        // Reset the entry state
-                        this.title = null;
-                        this.description = null;
-                        this.titleEmpty = false;
+                                
+                        // Send to the server
+                        this.loading = true;
+                        var self = this; // Capture this
+                        axios.post('/', item)
+                            .then(function (response) {
+                                self.items.push(item);
+                                self.title = null;
+                                self.description = null;
+                                self.titleEmpty = false;
+                                self.loading = false;
+                            })
+                            .catch(function (error) {
+                                console.log(error);
+                                self.loading = false;
+                            });
                     }
                 }
             });
