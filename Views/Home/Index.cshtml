@@ -7,6 +7,9 @@
         <script src="//unpkg.com/vue"></script>
         <link rel="stylesheet" href="//unpkg.com/bulma/css/bulma.css">
         <style>
+            .strikethrough {
+                text-decoration: line-through;
+            }
             .table th, .table td {
                 width: 30%;
             }
@@ -32,13 +35,14 @@
                                     </thead>
                                     <tbody>
                                         <tr v-for="(item, index) in items">
-                                            <td class="has-text-weight-bold is-size-4">
+                                            <td class="has-text-weight-bold is-size-4"
+                                                v-bind:class="{ 'has-text-grey-lighter strikethrough': item.done, 'has-text-primary': !item.done }">
                                                 {{ item.title }}
                                             </td>
                                             <td style="white-space: pre;">{{ item.description }}</td>
                                             <td>
-                                                <button class="button is-success">Done!</button>
-                                                <button class="button is-danger">Remove</button>
+                                                <button v-on:click="item.done = true" v-if="!item.done" class="button is-success">Done!</button>
+                                                <button v-on:click="items.splice(index, 1)" class="button is-danger">Remove</button>
                                             </td>
                                         </tr>
                                     </tbody>
@@ -78,7 +82,8 @@
                         // Create and add the new item
                         var item = {
                             title: this.title,
-                            description: this.description
+                            description: this.description,
+                            done: false
                         };
                         this.items.push(item);
 
